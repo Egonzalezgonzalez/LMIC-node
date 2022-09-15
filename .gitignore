@@ -8,12 +8,12 @@
 .piolibdeps
 
 # Exclude all contents from any keyfiles folder
-keyfiles/**
+# keyfiles/**
 # Except following example file
-!keyfiles/lorawan-keys_example.h
+# !keyfiles/lorawan-keys_example.h
 
 # Exclude any LoRaWAN key files with following pattern
-*lorawan-keys.h
+# *lorawan-keys.h
 
 # Exlude lib and include project folders (PlatformIO)
 /lib/
