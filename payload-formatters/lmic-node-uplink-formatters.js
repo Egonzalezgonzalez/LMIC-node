@@ -10,12 +10,13 @@
  *                 
  ******************************************************************************/
 
-function decodeUplink(input) {
+ function decodeUplink(input) {
     var data = {};
     var warnings = [];
 
     if (input.fPort == 10) {
         data.counter = (input.bytes[0] << 8) + input.bytes[1];
+        data.vBat = ((input.bytes[2] << 8) + input.bytes[3])/100;
     }
     else {
         warnings.push("Unsupported fPort");

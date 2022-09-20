@@ -30,6 +30,7 @@
 #include <Arduino.h>
 #include "lmic.h"
 #include "hal/hal.h"
+#include "Medidas.h"
 
 #ifdef USE_DISPLAY
     #include <Wire.h>

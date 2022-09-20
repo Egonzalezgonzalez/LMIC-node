@@ -766,9 +766,12 @@ void processWork(ostime_t doWorkJobTimeStamp)
         {
             // Prepare uplink payload.
             uint8_t fPort = 10;
+            uint16_t vBat = medirBateria();
             payloadBuffer[0] = counterValue >> 8;
             payloadBuffer[1] = counterValue & 0xFF;
-            uint8_t payloadLength = 2;
+            payloadBuffer[2] = vBat >> 8;
+            payloadBuffer[3] = vBat & 0xFF;
+            uint8_t payloadLength = 4;
 
             scheduleUplink(fPort, payloadBuffer, payloadLength);
         }
@@ -845,7 +848,9 @@ void setup()
 //  █ █ ▀▀█ █▀▀ █▀▄   █   █ █ █ █ █▀▀   █▀▄ █▀▀ █ █  █  █ █
 //  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀   ▀▀▀ ▀▀▀ ▀▀  ▀▀▀   ▀▀  ▀▀▀ ▀▀▀ ▀▀▀ ▀ ▀
 
-    // Place code for initializing sensors etc. here.
+    // Place code for initializing sensors etc. here.    
+    analogReference(AR_EXTERNAL); //Vref -> V3.3 Conexión física para establecer Vref para entradas analógicas.
+    setupGPS(); 
 
     resetCounter();
 
@@ -866,4 +871,5 @@ void setup()
 void loop() 
 {
     os_runloop_once();
+    GPS.parse(GPS.lastNMEA());
 }
