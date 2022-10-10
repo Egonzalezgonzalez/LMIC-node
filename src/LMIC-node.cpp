@@ -772,6 +772,8 @@ void processWork(ostime_t doWorkJobTimeStamp)
             payloadBuffer[2] = vBat >> 8;
             payloadBuffer[3] = vBat & 0xFF;
             uint8_t payloadLength = 4;
+            printAcel();
+            // medirPresion();
 
             scheduleUplink(fPort, payloadBuffer, payloadLength);
         }
@@ -850,8 +852,11 @@ void setup()
 
     // Place code for initializing sensors etc. here.    
     analogReference(AR_EXTERNAL); //Vref -> V3.3 Conexión física para establecer Vref para entradas analógicas.
+    // setupPinPresion(); //Input pulldown
     setupGPS(); 
-
+    setupAcel();
+    acelDataRate();
+    acelRange();
     resetCounter();
 
 //  █ █ █▀▀ █▀▀ █▀▄   █▀▀ █▀█ █▀▄ █▀▀   █▀▀ █▀█ █▀▄
@@ -865,11 +870,16 @@ void setup()
 
     // Schedule initial doWork job for immediate execution.
     os_setCallback(&doWorkJob, doWorkCallback);
+
+    serial.println("fin setup");
 }
 
 
 void loop() 
 {
     os_runloop_once();
-    GPS.parse(GPS.lastNMEA());
+    // GPS.parse(GPS.lastNMEA());
+    //printAcel();
+    // medirPresion();
+    // delay(1000);
 }
